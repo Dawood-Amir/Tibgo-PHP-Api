@@ -221,6 +221,7 @@ INSERT INTO doctors (address,
         "isSpecialist": 1,
         "docType": "allopathy",
         "d_id": 2
+        
     }
 }
 
