@@ -202,4 +202,26 @@ INSERT INTO doctors (address,
                 1);
        
 
+
+                {
+    "error": false,
+    "message": {
+        "id": 4,
+        "email": "dawood@docto.com",
+        "name": "Dawood Amir",
+        "phoneNumber": "+923244403636",
+        "userType": "doctor",
+        "ADT": "updatedw",
+        "address": "asdasdasda sdasdasdadadasd",
+        "openingTime": "8",
+        "closingTime": "10",
+        "docImgUrl": "asdbvasdvasd hjvdasgdhjsvdjvashjdf hjasvdhdga",
+        "chargePerVisit": 123,
+        "latLng": "asdasd",
+        "isSpecialist": 1,
+        "docType": "allopathy",
+        "d_id": 2
+    }
+}
+
  */
