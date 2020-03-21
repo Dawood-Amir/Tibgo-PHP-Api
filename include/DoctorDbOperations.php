@@ -43,6 +43,7 @@ class DoctorDbOperations
             
             $response = array();
             $response['error'] = false;
+            $response['message']= "Found doctor with that id";
             $response['doctors'] = $doctorsArray;
             return $response;
         }else{

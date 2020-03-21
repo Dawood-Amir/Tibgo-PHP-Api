@@ -26,7 +26,8 @@ if($db->isValid(array('id'))){
         if($result['error'] == false){
             $response = array();
             $response['error'] = false;
-            $response['message'] = $result['doctors'];
+            $response['message'] = $result['message'];
+            $response['doctor'] = $result['doctors'];
             echo json_encode($response);
         }else if($result['error'] == true){
             $response = array();

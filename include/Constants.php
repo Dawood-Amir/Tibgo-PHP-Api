@@ -202,10 +202,10 @@ INSERT INTO doctors (address,
                 1);
        
 
-
-                {
+{
     "error": false,
-    "message": {
+    "message": "Found doctor with that id",
+    "doctor": {
         "id": 4,
         "email": "dawood@docto.com",
         "name": "Dawood Amir",
@@ -221,7 +221,6 @@ INSERT INTO doctors (address,
         "isSpecialist": 1,
         "docType": "allopathy",
         "d_id": 2
-        
     }
 }
 
