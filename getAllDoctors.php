@@ -15,36 +15,26 @@ use \Firebase\JWT\JWT;
 
 $db = new DoctorDbOperations();
 
-$id = isset($_POST['id']) ? $_POST['id'] : -1;
 
-if ($db->isValid(array('id'))) {
 
-    //TODO: need to get the id from token using it as Header
+$result = $db->getDoctors();
 
-    $result = $db->getDoctors($id);
+if ($result['error'] == false) {
+    $response = array();
+    $response['error'] = false;
+    $response['message']=$result['message'];
+    $response['doctor'] = $result['doctors'];
+    echo json_encode($response);
 
-    if ($result['error'] == false) {
-        $response = array();
-        $response['error'] = false;
-        $response['message']=$result['message'];
-        $response['doctor'] = $result['doctors'];
-        echo json_encode($response);
+} elseif ($result['error'] == true) {
+    $response = array();
+    $response['error'] = true;
+    $response['message'] = $result['message'];
+    echo json_encode($response);
 
-    } elseif ($result['error'] == true) {
-        $response = array();
-        $response['error'] = true;
-        $response['message'] = $result['message'];
-        echo json_encode($response);
-
-    } else {
-        $response = array();
-        $response['error'] = true;
-        $response['message'] = "something went wrong cant get doctors";
-        echo json_encode($response);
-    }
 } else {
     $response = array();
-    $response['error'] =true;
-    $response['messge'] ="Empty params";
+    $response['error'] = true;
+    $response['message'] = "something went wrong cant get doctors";
     echo json_encode($response);
 }

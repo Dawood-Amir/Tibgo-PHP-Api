@@ -128,5 +128,5 @@ Opening and Closing Time Should be in this format ( HH:mm:ss ) in any registrati
             "d_id": 3
         }
     ]
-    
+     
 }

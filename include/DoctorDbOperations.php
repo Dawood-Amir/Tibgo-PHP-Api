@@ -14,7 +14,7 @@ class DoctorDbOperations
         $this->con = $db->connect();
     }   
     
-    public function getDoctors($id){
+    public function getDoctors(){
         $query = "SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT ,d.address, d.openingTime, d.closingTime,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docImgUrl,d.docType,d.d_id
                     FROM users As u, doctors AS d
                     WHERE u.id = d.u_id";
