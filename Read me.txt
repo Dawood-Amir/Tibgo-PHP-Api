@@ -1,0 +1,131 @@
+Github link for cloning the project
+    https://github.com/Dawood-Amir/Tibgo-PHP-Api.git
+
+TODO : UserTypes will be in INT 
+0 ->User
+1->Doctor
+2->Lab
+3->Pharmacy
+DoctorType will be in INT
+11->Allopathic
+12->Homeopathic
+I dont think there will be Type attribute for Lab & Pharmacy but they both should have an option to create a 
+new Phlebotomist and pharmacist
+21->pharmacist -> userType
+31->Phlebotomist ->userType
+
+
+These are some Querries Which will be helpful creating DB 
+    ////Query for creating Doctor Table 
+                CREATE TABLE doctors( 
+                d_Id INT AUTO_INCREMENT PRIMARY KEY,
+                address varchar(200) not null,
+                openingTime varchar(10) not null,
+                closingTime varchar(10) not null,
+                chargePerVisit INT(100) not null,
+                latLng varchar(100) not null,
+                isSpecialist Boolean not null,
+                specialistIn varchar(100),
+                docType VARCHAR(50) not null,
+                docImgUrl VARCHAR(200) not null,
+                u_id INT NOT NULL,
+                CONSTRAINT u_id FOREIGN KEY (u_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
+
+    ////Query for Inserting into Doctor Table 
+                INSERT INTO doctors (address,
+                                    openingTime,
+                                    closingTime,
+                                    chargePerVisit,
+                                    latLng,
+                                    isSpecialist,
+                                    specialistIn,
+                                    docType,
+                                    docImgUrl,
+                                    u_id)
+                    VALUES ('unknown',
+                            '10',
+                            '8',
+                            12000,
+                            '12.31231293,123123.12',
+                            true,
+                            'Skin Specialist',
+                            'alopathic',
+                            'asdasdasdasdasdafafsdvsdsdfgsd',
+                            1);
+                    
+
+    ////Query for getting a doctor from User and Doctor Table where id is
+                    $query = "SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT ,d.address, d.openingTime, d.closingTime,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docImgUrl,d.docType,d.d_id
+                    FROM users As u, doctors AS d
+                    WHERE u.id ='$id' AND d.u_id = '$id'";
+
+    ////Query for getting all doctors of type from User and Doctor Table 
+                    SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT ,d.address, d.openingTime, d.closingTime,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docImgUrl,d.docType,d.d_id
+                    FROM users As u, doctors AS d
+                    WHERE u.id = d.u_id
+
+    ////Query for getting all doctors of type 'allopathy' from User and Doctor Table 
+                    SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT ,d.address, d.openingTime, d.closingTime,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docImgUrl,d.docType,d.d_id
+                    FROM users As u, doctors AS d
+                    WHERE u.id = d.u_id AND  d.docType = 'allopathy'
+
+    
+Opening and Closing Time Should be in this format ( HH:mm:ss ) in any registration api
+         
+{
+    "error": false,
+    "message": "Found Doctors",
+    "doctor": [
+        {
+            "id": 1,
+            "email": "$email",
+            "name": "$name",
+            "phoneNumber": "$phoneNumber",
+            "userType": "$userType",
+            "ADT": "$ADT",
+            "address": "unknown",
+            "openingTime": "10AM TO PM",
+            "closingTime": "",
+            "docImgUrl": "asdasdasdasdasdafafsdvsdsdfgsd",
+            "chargePerVisit": 12000,
+            "latLng": "12.31231293,123123.12",
+            "isSpecialist": 1,
+            "docType": "alopathic",
+            "d_id": 1
+        },
+        {
+            "id": 4,
+            "email": "dawood@docto.com",
+            "name": "Dawood Amir",
+            "phoneNumber": "+923244403636",
+            "userType": "doctor",
+            "ADT": "updatedw",
+            "address": "asdasdasda sdasdasdadadasd",
+            "openingTime": "10:00:00",
+            "closingTime": "20:00:00",
+            "docImgUrl": "asdbvasdvasd hjvdasgdhjsvdjvashjdf hjasvdhdga",
+            "chargePerVisit": 123,
+            "latLng": "asdasd",
+            "isSpecialist": 1,
+            "docType": "allopathy",
+            "d_id": 2
+        },
+        {
+            "id": 6,
+            "email": "dawood@doctor.com",
+            "name": "Dawood Amir",
+            "phoneNumber": "+923244403636",
+            "userType": "doctor",
+            "ADT": "updatedw",
+            "address": "asdasdasda sdasdasdadadasd",
+            "openingTime": "08:00:00",
+            "closingTime": "20:00:00",
+            "docImgUrl": "asdbvasdvasd hjvdasgdhjsvdjvashjdf hjasvdhdga",
+            "chargePerVisit": 123,
+            "latLng": "asdasd",
+            "isSpecialist": 1,
+            "docType": "allopathy",
+            "d_id": 3
+        }
+    ]
+}

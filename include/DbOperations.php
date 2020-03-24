@@ -98,8 +98,8 @@ class DbOperations
         $param['message'] = "Couldn't insert else Data";
         return $param;
     }
-/* 
-`~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
+    /*
+    `~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
     public function getUserData($email)
     {
         if ($this->isEmailExists($email)) {
@@ -130,7 +130,7 @@ class DbOperations
     private function getDocUserData($email, $id)
     {
         if ($this->isEmailExists($email)) {
-            $query = "SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT ,d.address, d.workingHours,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docType,d.d_id
+            $query = "SELECT u.id,u.email,u.name,u.phoneNumber,u.userType,u.ADT,d.address,d.openingTime,d.closingTime,d.chargePerVisit,d.latLng,d.isSpecialist,d.specialistIn,d.docType,d.docImgUrl,d.d_id
                     FROM users As u, doctors AS d
                     WHERE u.id ='$id' AND d.u_id = '$id'";
 
@@ -148,14 +148,15 @@ class DbOperations
                     "userType" => $row["userType"],
                     "ADT" => $row["ADT"],
                     "address" => $row["address"],
-                    "workingHours" => $row["workingHours"],
+                    "openingTime" => $row["openingTime"],
+                    "closingTime" => $row["closingTime"],
                     "chargePerVisit" => intval($row["chargePerVisit"]),
                     "latLng" => $row["latLng"],
                     "isSpecialist" => intval($row["isSpecialist"]),
                     "specialistIn" => $row["specialistIn"],
                     "docType" => $row["docType"],
-
-                    "d_id" => intval($row["d_id"]),
+                    "docImgUrl" => $row["docImgUrl"],
+                    "d_id" => intval($row["d_id"])
                 ];
                 $param['row'] = $userArray;
                 return $param;
