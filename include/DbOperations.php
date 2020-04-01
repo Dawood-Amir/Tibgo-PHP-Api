@@ -99,7 +99,70 @@ class DbOperations
         return $param;
     }
     /*
-    `~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
+        `~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
+    public function addToPharmacy(
+        $email,
+        $address,
+        $openingTime,
+        $closingTime,
+        $chargePerVisit,
+        $cardHashedClr,
+        $notAvailableExceptionally,
+        $latLng,
+        $uId
+    ) {
+        if ($this->isEmailExists($email)) {
+            if ($notAvailableExceptionally) {
+                $notAvailableExceptionalInt = 1;
+            } else {
+                $notAvailableExceptionalInt = 0;
+            }
+
+            $query = "INSERT INTO pharmacies
+            (address,
+            openingTime,
+            closingTime,
+            chargePerVisit,
+            cardHashedClr,
+            notAvailableExceptionally,
+            latLng,
+            uId)
+             VALUES ('$address',
+            '$openingTime',
+            '$closingTime',
+            '$chargePerVisit',
+            '$cardHashedClr',
+            '$notAvailableExceptionalInt',
+            '$latLng',
+            '$uId')";
+
+            $result = mysqli_query($this->con, $query);
+            $id = mysqli_insert_id($this->con);
+
+            if ($result) {
+                $gotPrams = $this->getPharmacyData($email, $uId);
+                if ($gotPrams['error'] == false) {
+                    $param = array();
+                    $param['error'] = false;
+                    $param['message'] = "inserted Successfully in pharmacies";
+                    $param['pharmacy'] = $gotPrams['row'];
+                    return $param;
+                }
+            } else {
+                $param = array();
+                $param['error'] = true;
+                $param['message'] = "Couldn't insert Data";
+                return $param;
+            }
+        } else {
+            $param = array();
+            $param['error'] = true;
+            $param['message'] = "Couldn't insert Data";
+            return $param;
+        }
+    }
+
+
     public function getUserData($email)
     {
         if ($this->isEmailExists($email)) {
@@ -174,6 +237,56 @@ class DbOperations
         }
     }
 
+    private function getPharmacyData($email, $id)
+    {
+        if ($this->isEmailExists($email)) {
+            $query = "SELECT u.id,u.email,u.name,
+            u.phoneNumber,u.userType,u.ADT,
+            p.address,p.openingTime,p.closingTime,
+            p.chargePerVisit,p.cardHashedClr,p.notAvailableExceptionally,
+            p.latLng,
+            p.pharmacyId
+            FROM users As u, pharmacies AS p
+            WHERE u.id ='$id' AND p.uId = '$id'";
+
+            $result = mysqli_query($this->con, $query);
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+                // $boolean = $mysql_data ? true : false;
+                $pharmacyArray = [
+                    "id" => intval($row["id"]),
+                    "email" => $row["email"],
+                    "name" => $row["name"],
+                    "phoneNumber" => $row["phoneNumber"],
+                    "userType" => $row["userType"],
+                    "ADT" => $row["ADT"],
+                    "address" => $row["address"],
+                    "openingTime" => $row["openingTime"],
+                    "closingTime" => $row["closingTime"],
+                    "chargePerVisit" => intval($row["chargePerVisit"]),
+                    "cardHashedClr" => $row["cardHashedClr"],
+                    "notAvailableExceptionally" => intval($row["notAvailableExceptionally"]),
+                    "latLng" => $row["latLng"],
+                    "pharmacyId" => intval($row["pharmacyId"])
+                ];
+                $param = array();
+                $param['error'] = false;
+                $param['row'] = $pharmacyArray;
+                return $param;
+            } else {
+                $param = array();
+                $param['error'] = true;
+                $param['message'] = "Couldn't get the data from Phamacies";
+                return $param;
+            }
+        } else {
+            $param = array();
+            $param['error'] = true;
+            $param['message'] = "Couldn't find the given $email";
+            return $param;
+        }
+    }
+
     public function isValid($params)
     {
         foreach ($params as $param) {
@@ -205,7 +318,6 @@ class DbOperations
 
     public function getAllUsers()
     {
-
         /*
         By this method well get response like
         [

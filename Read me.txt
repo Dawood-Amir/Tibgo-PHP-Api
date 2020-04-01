@@ -15,7 +15,7 @@ new Phlebotomist and pharmacist
 31->Phlebotomist ->userType
 
 
-These are some Querries Which will be helpful creating DB 
+These are some Querries Which will be helpful creating DB should chage and notAvailable attr to everyTable
     ////Query for creating Doctor Table 
                 CREATE TABLE doctors( 
                 d_Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,6 +30,19 @@ These are some Querries Which will be helpful creating DB
                 docImgUrl VARCHAR(200) not null,
                 u_id INT NOT NULL,
                 CONSTRAINT u_id FOREIGN KEY (u_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
+
+ CREATE TABLE pharmacies( 
+                pharmacyId INT AUTO_INCREMENT PRIMARY KEY,
+                address varchar(200) not null,
+                openingTime varchar(20) not null,
+                closingTime varchar(20) not null,
+                chargePerVisit INT(100) not null,
+                cardHashedClr varchar(10) not null,
+                notAvailableExceptionally Boolean not null,
+                latLng varchar(100) not null,
+                u_id INT NOT NULL,
+                CONSTRAINT u_id FOREIGN KEY (u_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
+                if theres any error check it and change the u_id to uId
 
     ////Query for Inserting into Doctor Table 
                 INSERT INTO doctors (address,
@@ -69,7 +82,23 @@ These are some Querries Which will be helpful creating DB
                     FROM users As u, doctors AS d
                     WHERE u.id = d.u_id AND  d.docType = 'allopathy'
 
-    
+       $query ="SELECT u.id,
+                u.email,
+                u.name,
+                u.phoneNumber,
+                u.userType,
+                u.ADT,
+                p.address,
+                p.openingTime,
+                p.closingTime,
+                p.chargePerVisit,
+                p.latLng,
+                p.cardHashedClr,
+                d.notAvailableExceptionally,
+                p.pharmacyId
+                FROM users As u, pharmacies AS p
+                WHERE u.id = p.uId";
+
 Opening and Closing Time Should be in this format ( HH:mm:ss ) in any registration api
          
 {

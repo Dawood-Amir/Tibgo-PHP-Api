@@ -1,9 +1,12 @@
 <?php
 
 //First make this a class which can have functions
-//make a var of connection
+//make a var $con of connection
 //make a constructor
-class DoctorDbOperations
+//make a var $db of connection give it a new instaancy of DbConnect
+//connect the var $con in constructor with  $db
+
+class PharmacyDbOperations
 {
     private $con;
     
@@ -12,36 +15,35 @@ class DoctorDbOperations
         require_once 'DbConnect.php';
         $db = new DbConnect();
         $this->con = $db->connect();
-    }   
+    }
     
-    public function getDoctors(){
-        
-                $query = "SELECT u.id,
+    public function getPharmacies()
+    {
+        $query ="SELECT u.id,
                 u.email,
                 u.name,
                 u.phoneNumber,
                 u.userType,
                 u.ADT,
-                d.address,
-                d.openingTime,
-                d.closingTime,
-                d.chargePerVisit,
-                d.latLng,
-                d.isSpecialist,
-                d.specialistIn,
-                d.docImgUrl,
-                d.docType,
-                d.d_id
-                FROM users As u, doctors AS d
-                WHERE u.id = d.u_id";
+                p.addres s,
+                p.openingTime,
+                p.closingTime,
+                p.chargePerVisit,
+                p.cardHashedClr,
+                p.notAvailableExceptionally,
+                p.latLng,
+                p.pharmacyId
+                FROM users As u, pharmacies AS p
+                WHERE u.id = p.uId";
 
         $result = mysqli_query($this->con, $query);
-        $resultArray = array();
-        if($result->num_rows > 0){
+        $resultArray = array(); 
+        if ($result->num_rows > 0) {
 
-            while ($row = mysqli_fetch_assoc($result)){
-                $doctorsArray = [
+            while ($row = mysqli_fetch_assoc($result)) { 
+                $pharmacyArray= [
                     "id" => intval($row["id"]),
+                    "pharmacyId" => intval($row["pharmacyId"]),
                     "email" => $row["email"],
                     "name" => $row["name"],
                     "phoneNumber" => $row["phoneNumber"],
@@ -50,30 +52,26 @@ class DoctorDbOperations
                     "address" => $row["address"],
                     "openingTime" => $row["openingTime"],
                     "closingTime" => $row["closingTime"],
-                    "docImgUrl" => $row["docImgUrl"],
                     "chargePerVisit" => intval($row["chargePerVisit"]),
-                    "latLng" => $row["latLng"],
-                    "isSpecialist" => intval($row["isSpecialist"]),
-                    "docType" => $row["docType"],
-                    "d_id" => intval($row["d_id"])
-                ]; 
+                    "cardHashedClr" => $row["cardHashedClr"],
+                    "notAvailableExceptionally" => intval($row["notAvailableExceptionally"]),
+                    "latLng" => $row["latLng"]
+                ];
 
-                $resultArray[] =$doctorsArray;
+                $resultArray[] =$pharmacyArray;
             }
         
             $response = array();
             $response['error'] = false;
-            $response['message']= "Found Doctors";
-            $response['doctors'] = $resultArray;
+            $response['message']= "Found pharmacy";
+            $response['pharmacies'] = $resultArray;
             return $response;
-        }else{
+        } else {
             $response = array();
             $response['error'] = true;
-            $response['message']= "Cannot find any doctor";
+            $response['message']= "Cannot find any pharmacy";
             return $response;
         }
-                   
-        
     }
 
     public function isValid($params)
@@ -91,5 +89,4 @@ class DoctorDbOperations
         //return true if every param is available and not empty
         return true;
     }
-
 }
