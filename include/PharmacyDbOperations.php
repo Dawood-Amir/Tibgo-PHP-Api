@@ -25,7 +25,7 @@ class PharmacyDbOperations
                 u.phoneNumber,
                 u.userType,
                 u.ADT,
-                p.addres s,
+                p.address,
                 p.openingTime,
                 p.closingTime,
                 p.chargePerVisit,

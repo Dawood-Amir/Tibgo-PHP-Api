@@ -82,6 +82,7 @@ These are some Querries Which will be helpful creating DB should chage and notAv
                     FROM users As u, doctors AS d
                     WHERE u.id = d.u_id AND  d.docType = 'allopathy'
 
+     ////Query for getting all pharmacies
        $query ="SELECT u.id,
                 u.email,
                 u.name,
@@ -103,59 +104,87 @@ Opening and Closing Time Should be in this format ( HH:mm:ss ) in any registrati
          
 {
     "error": false,
-    "message": "Found Doctors",
-    "doctor": [
+    "message": "Found pharmacy",
+    "pharmacies": [
         {
-            "id": 1,
-            "email": "$email",
-            "name": "$name",
-            "phoneNumber": "$phoneNumber",
-            "userType": "$userType",
-            "ADT": "$ADT",
-            "address": "unknown",
-            "openingTime": "10AM TO PM",
-            "closingTime": "",
-            "docImgUrl": "asdasdasdasdasdafafsdvsdsdfgsd",
-            "chargePerVisit": 12000,
-            "latLng": "12.31231293,123123.12",
-            "isSpecialist": 1,
-            "docType": "alopathic",
-            "d_id": 1
-        },
-        {
-            "id": 4,
-            "email": "dawood@docto.com",
+            "id": 7,
+            "pharmacyId": 1,
+            "email": "dawood@pharmac.com",
             "name": "Dawood Amir",
             "phoneNumber": "+923244403636",
-            "userType": "doctor",
+            "userType": "3",
             "ADT": "updatedw",
             "address": "asdasdasda sdasdasdadadasd",
             "openingTime": "10:00:00",
             "closingTime": "20:00:00",
-            "docImgUrl": "asdbvasdvasd hjvdasgdhjsvdjvashjdf hjasvdhdga",
             "chargePerVisit": 123,
-            "latLng": "asdasd",
-            "isSpecialist": 1,
-            "docType": "allopathy",
-            "d_id": 2
+            "cardHashedClr": "#E1B3A4",
+            "notAvailableExceptionally": 1,
+            "latLng": "asdasd"
         },
         {
-            "id": 6,
-            "email": "dawood@doctor.com",
+            "id": 8,
+            "pharmacyId": 2,
+            "email": "dawood@pharmacy.com",
             "name": "Dawood Amir",
             "phoneNumber": "+923244403636",
-            "userType": "doctor",
+            "userType": "3",
             "ADT": "updatedw",
-            "address": "asdasdasda sdasdasdadadasd",
-            "openingTime": "08:00:00",
+            "address": "asdasdasdasdasdasdadadasd",
+            "openingTime": "10:00:00",
             "closingTime": "20:00:00",
-            "docImgUrl": "asdbvasdvasd hjvdasgdhjsvdjvashjdf hjasvdhdga",
             "chargePerVisit": 123,
-            "latLng": "asdasd",
-            "isSpecialist": 1,
-            "docType": "allopathy",
-            "d_id": 3
+            "cardHashedClr": "#D89Ab6",
+            "notAvailableExceptionally": 1,
+            "latLng": "asdasd"
+        },
+        {
+            "id": 9,
+            "pharmacyId": 3,
+            "email": "dawood@pharmacies.com",
+            "name": "Dawood Amir",
+            "phoneNumber": "+923244403636",
+            "userType": "3",
+            "ADT": "updatedw",
+            "address": "asdasdasdasdasdasdadadasd",
+            "openingTime": "10:00:00",
+            "closingTime": "20:00:00",
+            "chargePerVisit": 123,
+            "cardHashedClr": "#8A90B6",
+            "notAvailableExceptionally": 0,
+            "latLng": "asdasd"
+        },
+        {
+            "id": 10,
+            "pharmacyId": 4,
+            "email": "hu@pharmacies.com",
+            "name": "Dawood Amir",
+            "phoneNumber": "+923244403636",
+            "userType": "3",
+            "ADT": "updatedw",
+            "address": "asdasdasdasdasdasdadadasd",
+            "openingTime": "10:00:00",
+            "closingTime": "20:00:00",
+            "chargePerVisit": 123,
+            "cardHashedClr": "#AF9DB8",
+            "notAvailableExceptionally": 0,
+            "latLng": "asdasd"
+        },
+        {
+            "id": 11,
+            "pharmacyId": 5,
+            "email": "hus@pharmacies.com",
+            "name": "Dawood Amir",
+            "phoneNumber": "+923244403636",
+            "userType": "3",
+            "ADT": "updatedw",
+            "address": "asdasdasdasdasdasdadadasd",
+            "openingTime": "10:00:00",
+            "closingTime": "20:00:00",
+            "chargePerVisit": 123,
+            "cardHashedClr": "#DAE6CD",
+            "notAvailableExceptionally": 0,
+            "latLng": "asdasd"
         }
     ]
-     
 }
