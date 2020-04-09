@@ -26,12 +26,9 @@ $address = isset($_POST['address']) ? $_POST['address'] : '';
 $openingTime = isset($_POST['openingTime']) ? $_POST['openingTime'] : '';
 $closingTime = isset($_POST['closingTime']) ? $_POST['closingTime'] : '';
 $chargePerVisit = isset($_POST['chargePerVisit']) ? $_POST['chargePerVisit'] : '';
-$cardHashedClr = isset($_POST['cardHashedClr']) ? $_POST['cardHashedClr'] : '';
+$labImgUrl = isset($_POST['labImgUrl']) ? $_POST['labImgUrl'] : '';
 $notAvailableExceptionally = isset($_POST['notAvailableExceptionally']) ? $_POST['notAvailableExceptionally'] : 0;
 $latLng = isset($_POST['latLng']) ? $_POST['latLng'] : '';
-
-       
-     
 
 if ($db->isValid(array(
     'email',
@@ -44,19 +41,19 @@ if ($db->isValid(array(
     'openingTime',
     'closingTime',
     'chargePerVisit',
-    'cardHashedClr',
+    'labImgUrl',
     'latLng'))) {
     $result = $db->registerUser($email, $password, $name, $phoneNumber, $userType, $ADT);
     if ($result['status'] == USER_CREATED) {
         $uid = $result['id'];
         
-        $rPharmacy = $db->addToPharmacy(
+        $rLabs = $db->addToLabs(
             $email,
             $address,
             $openingTime,
             $closingTime,
             $chargePerVisit,
-            $cardHashedClr,
+            $labImgUrl,
             $notAvailableExceptionally,
             $latLng,
             $uid
@@ -64,8 +61,8 @@ if ($db->isValid(array(
 
         $token = array(
             "error" => false,
-            "message" => 'Pharmacy created successfully',
-            "pharmacy" => $rPharmacy
+            "message" => 'Lab created successfully',
+            "lab" => $rLabs
         ) ;
 
         http_response_code(201);
@@ -74,7 +71,7 @@ if ($db->isValid(array(
         echo json_encode(
             array(
                 "error" => false,
-                "message" => "Pharmacy created successfully",
+                "message" => "lab created successfully",
                 "jwt" => $jwt
             )
         );

@@ -40,9 +40,23 @@ These are some Querries Which will be helpful creating DB should chage and notAv
                 cardHashedClr varchar(10) not null,
                 notAvailableExceptionally Boolean not null,
                 latLng varchar(100) not null,
-                u_id INT NOT NULL,
-                CONSTRAINT u_id FOREIGN KEY (u_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
+                uId INT NOT NULL,
+                CONSTRAINT uId FOREIGN KEY (uId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
                 if theres any error check it and change the u_id to uId
+
+
+ CREATE TABLE labs( 
+                labId INT AUTO_INCREMENT PRIMARY KEY,
+                address varchar(200) not null,
+                openingTime varchar(20) not null,
+                closingTime varchar(20) not null,
+                chargePerVisit INT(100) not null,
+                labImgUrl varchar(10) not null,
+                notAvailableExceptionally Boolean not null,
+                latLng varchar(100) not null,
+                u_uID INT NOT NULL,
+                CONSTRAINT u_uID FOREIGN KEY (u_uID) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE )
+                if theres any error check it and change the u_id to something else
 
     ////Query for Inserting into Doctor Table 
                 INSERT INTO doctors (address,
@@ -101,90 +115,43 @@ These are some Querries Which will be helpful creating DB should chage and notAv
                 WHERE u.id = p.uId";
 
 Opening and Closing Time Should be in this format ( HH:mm:ss ) in any registration api
-         
-{
+
+
+         {
     "error": false,
-    "message": "Found pharmacy",
-    "pharmacies": [
+    "message": "Found Labs",
+    "labs": [
         {
-            "id": 7,
-            "pharmacyId": 1,
-            "email": "dawood@pharmac.com",
+            "id": 13,
+            "labId": 1,
+            "email": "husnain@lab.com",
             "name": "Dawood Amir",
             "phoneNumber": "+923244403636",
-            "userType": "3",
-            "ADT": "updatedw",
-            "address": "asdasdasda sdasdasdadadasd",
-            "openingTime": "10:00:00",
-            "closingTime": "20:00:00",
-            "chargePerVisit": 123,
-            "cardHashedClr": "#E1B3A4",
-            "notAvailableExceptionally": 1,
-            "latLng": "asdasd"
-        },
-        {
-            "id": 8,
-            "pharmacyId": 2,
-            "email": "dawood@pharmacy.com",
-            "name": "Dawood Amir",
-            "phoneNumber": "+923244403636",
-            "userType": "3",
+            "userType": "2",
             "ADT": "updatedw",
             "address": "asdasdasdasdasdasdadadasd",
             "openingTime": "10:00:00",
             "closingTime": "20:00:00",
             "chargePerVisit": 123,
-            "cardHashedClr": "#D89Ab6",
-            "notAvailableExceptionally": 1,
-            "latLng": "asdasd"
-        },
-        {
-            "id": 9,
-            "pharmacyId": 3,
-            "email": "dawood@pharmacies.com",
-            "name": "Dawood Amir",
-            "phoneNumber": "+923244403636",
-            "userType": "3",
-            "ADT": "updatedw",
-            "address": "asdasdasdasdasdasdadadasd",
-            "openingTime": "10:00:00",
-            "closingTime": "20:00:00",
-            "chargePerVisit": 123,
-            "cardHashedClr": "#8A90B6",
+            "labImgUrl": "nsdgasdhja",
             "notAvailableExceptionally": 0,
-            "latLng": "asdasd"
+            "latLng": "asdasdsfdd f"
         },
         {
-            "id": 10,
-            "pharmacyId": 4,
-            "email": "hu@pharmacies.com",
+            "id": 14,
+            "labId": 2,
+            "email": "husnain@labs.com",
             "name": "Dawood Amir",
             "phoneNumber": "+923244403636",
-            "userType": "3",
+            "userType": "2",
             "ADT": "updatedw",
             "address": "asdasdasdasdasdasdadadasd",
             "openingTime": "10:00:00",
             "closingTime": "20:00:00",
             "chargePerVisit": 123,
-            "cardHashedClr": "#AF9DB8",
+            "labImgUrl": "nsdgasdhjahjsdhjasgdgashj shjhgasgd shagdhgsdgashdghjasgdhg ash gashbdhsghjcgsgadghjas ",
             "notAvailableExceptionally": 0,
-            "latLng": "asdasd"
-        },
-        {
-            "id": 11,
-            "pharmacyId": 5,
-            "email": "hus@pharmacies.com",
-            "name": "Dawood Amir",
-            "phoneNumber": "+923244403636",
-            "userType": "3",
-            "ADT": "updatedw",
-            "address": "asdasdasdasdasdasdadadasd",
-            "openingTime": "10:00:00",
-            "closingTime": "20:00:00",
-            "chargePerVisit": 123,
-            "cardHashedClr": "#DAE6CD",
-            "notAvailableExceptionally": 0,
-            "latLng": "asdasd"
+            "latLng": "asdasdsfdd f"
         }
     ]
 }

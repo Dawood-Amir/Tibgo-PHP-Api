@@ -99,7 +99,7 @@ class DbOperations
         return $param;
     }
     /*
-        `~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
+    `~!@#$%^&*()-=+[{]}\|;:'",.<>/? */
     public function addToPharmacy(
         $email,
         $address,
@@ -162,6 +162,121 @@ class DbOperations
         }
     }
 
+    public function addToLabs($email,
+        $address,
+        $openingTime,
+        $closingTime,
+        $chargePerVisit,
+        $labImgUrl,
+        $notAvailableExceptionally,
+        $latLng,
+        $u_uID) {
+        if ($this->isEmailExists($email)) {
+            if ($notAvailableExceptionally) {
+                $isAvailableExceInt = 1;
+            } else {
+                $isAvailableExceInt = 0;
+            }
+            $query = "INSERT INTO labs
+            (address,
+            openingTime,
+            closingTime,
+            chargePerVisit,
+            labImgUrl,
+            notAvailableExceptionally,
+            latLng,
+            u_uID
+            ) VALUES ('$address',
+            '$openingTime',
+            '$closingTime',
+            '$chargePerVisit',
+            '$labImgUrl',
+            '$isAvailableExceInt',
+            '$latLng',
+            '$u_uID')";
+
+            $result = mysqli_query($this->con, $query);
+            $id = mysqli_insert_id($this->con);
+
+            if ($result) {
+                $gotPrams = $this->getDocUserData($email, $u_uID);
+                if ($gotPrams['error'] == false) {
+                    $param = array();
+                    $param['error'] = false;
+                    $param['message'] = "inserted Successfully in labs";
+                    $param['lab'] = $gotPrams['row'];
+                    return $param;
+                }
+            } else {
+                $param = array();
+                $param['error'] = true;
+                $param['message'] = "Couldn't insert Lab";
+                return $param;
+            }
+        }
+        $param = array();
+        $param['error'] = true;
+        $param['message'] = "Couldn't Signup try again";
+        return $param;
+    }
+
+    private function getLabUserData($email, $id)
+    {
+        if ($this->isEmailExists($email)) {
+            $query = "SELECT u.id,
+            u.email,
+            u.name,
+            u.phoneNumber,
+            u.userType,
+            u.ADT,
+            l.address,
+            l.openingTime,
+            l.closingTime,
+            l.chargePerVisit,
+            l.labImgUrl,
+            l.notAvailableExceptionally,
+            l.latLng,
+            l.u_uID
+                    FROM users As u, labs AS l
+                    WHERE u.id ='$id' AND  l.u_uID = '$id'";
+
+            $result = mysqli_query($this->con, $query);
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+                $param = array();
+                $param['error'] = false;
+                // $boolean = $mysql_data ? true : false;
+                $userArray = [
+                    "id" => intval($row["id"]),
+                    "labId" => intval($row["labId"]),
+                    "email" => $row["email"],
+                    "name" => $row["name"],
+                    "phoneNumber" => $row["phoneNumber"],
+                    "userType" => $row["userType"],
+                    "ADT" => $row["ADT"],
+                    "address" => $row["address"],
+                    "openingTime" => $row["openingTime"],
+                    "closingTime" => $row["closingTime"],
+                    "chargePerVisit" => intval($row["chargePerVisit"]),
+                    "labImgUrl" => $row["labImgUrl"],
+                    "notAvailableExceptionally" => intval($row["notAvailableExceptionally"]),
+                    "latLng" => $row["latLng"],
+                ];
+                $param['row'] = $userArray;
+                return $param;
+            } else {
+                $param = array();
+                $param['error'] = true;
+                $param['message'] = "Couldn't get the data from labs";
+                return $param;
+            }
+        } else {
+            $param = array();
+            $param['error'] = true;
+            $param['message'] = "Couldn't find the given $email";
+            return $param;
+        }
+    }
 
     public function getUserData($email)
     {
@@ -219,7 +334,7 @@ class DbOperations
                     "specialistIn" => $row["specialistIn"],
                     "docType" => $row["docType"],
                     "docImgUrl" => $row["docImgUrl"],
-                    "d_id" => intval($row["d_id"])
+                    "d_id" => intval($row["d_id"]),
                 ];
                 $param['row'] = $userArray;
                 return $param;
@@ -267,7 +382,7 @@ class DbOperations
                     "cardHashedClr" => $row["cardHashedClr"],
                     "notAvailableExceptionally" => intval($row["notAvailableExceptionally"]),
                     "latLng" => $row["latLng"],
-                    "pharmacyId" => intval($row["pharmacyId"])
+                    "pharmacyId" => intval($row["pharmacyId"]),
                 ];
                 $param = array();
                 $param['error'] = false;
